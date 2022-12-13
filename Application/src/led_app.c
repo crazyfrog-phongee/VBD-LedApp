@@ -3,7 +3,7 @@
 */
 #include <stdio.h>
 
-#include "mjson.c"
+#include "mjson.h"
 
 #define SIZE 50
 #define LED_MANAGER_ALL_NUM 2
@@ -11,6 +11,7 @@
 typedef struct led_attrs led_attrs_t;
 struct led_attrs
 {
+    int ledIndex;
     int ledStatus;
     int colorIndex;
     int lightDuty;
@@ -31,6 +32,7 @@ int json_config_read(const char *buf, struct config *config)
 {
     /* Mapping of JSON attributes to C led_attrs's struct members */
     const struct json_attr_t json_attrs_led[] = {
+        {"ledIndex", t_integer, STRUCTOBJECT(struct led_attrs, ledIndex)},
         {"ledStatus", t_integer, STRUCTOBJECT(struct led_attrs, ledStatus)},
         {"colorIndex", t_integer, STRUCTOBJECT(struct led_attrs, colorIndex)},
         {"lightDuty", t_integer, STRUCTOBJECT(struct led_attrs, lightDuty)},
@@ -79,7 +81,7 @@ int main(int argc, char const *argv[])
         printf("action: %s\n\n", config_info->action);
         for (size_t i = 0; i < config_info->nObject; i++)
         {
-            printf("ledIndex: %d\n", i);
+            printf("ledIndex: %d\n", config_info->ledList[i].ledIndex);
             printf("ledStatus: %s\n", ((config_info->ledList[i].ledStatus == 1) ? "ON": "OFF"));
             printf("colorIndex: %d\n", config_info->ledList[i].colorIndex);
             printf("lightDuty: %d\n", config_info->ledList[i].colorIndex);
