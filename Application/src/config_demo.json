@@ -1,0 +1,15 @@
+{
+    "action": "downloading",
+    "ledList": [
+        {
+            "colorIndex": 1,
+            "lightDuty": 2,
+            "ledStatus": 1
+        },
+        {
+            "colorIndex": 2,
+            "lightDuty": 3,
+            "ledStatus": 0
+        }
+    ]
+}
